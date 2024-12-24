@@ -60,11 +60,11 @@ async def create_schedule(request: ScheduleRequest):
         schedule = scheduler.optimize()
         
         # レスポンスの作成
-        return ScheduleResponse(
-            schedule_result=scheduler.debug_info['schedule_result'],
-            statistics=scheduler.debug_info['statistics'],
-            execution_time=scheduler.debug_info.get('execution_time', 0.0)
-        )
+        # return ScheduleResponse(
+        #     schedule_result=scheduler.debug_info['schedule_result'],
+        #     statistics=scheduler.debug_info['statistics'],
+        #     # execution_time=scheduler.debug_info.get('execution_time', 0.0)
+        # )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -78,19 +78,18 @@ async def get_schedule_test():
     try:
         # テストデータの生成とスケジューリング
         performances, availability = scheduler.generate_test_data(100, 20)
-        scheduler = scheduler.EnhancedScheduler(performances, availability)
-        schedule = scheduler.optimize()
+        scheduler_Data = scheduler.get_detail_data(performances, availability)
+        # schedule = scheduler.optimize()
         
         # JSONシリアライズ可能な形式に変換
-        response_data = {
-            "schedule_result": scheduler.debug_info['schedule_result'],
-            "statistics": scheduler.debug_info['statistics'],
-            "input_data": {
-                "num_members": 100,
-                "num_performances": 20
-            }
-        }
-        
-        return response_data
+        # response_data = {
+        #     "schedule_result": scheduler.debug_info['schedule_result'],
+        #     "statistics": scheduler.debug_info['statistics'],
+        #     # "input_data": {
+        #     #     "num_members": 100,
+        #     #     "num_performances": 20
+        #     # }
+        # }
+        return scheduler_Data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

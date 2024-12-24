@@ -249,5 +249,42 @@ def run_detailed_test():
     
     # print("\n詳細なデバッグ情報は'schedule_debug.json'に保存されました")
 
+def get_detail_data(performances: int, availability: int):
+    # スケジューリング実行
+    print("スケジューリング実行中...")
+    # start_time = time.time()
+    scheduler = EnhancedScheduler(performances, availability)
+    schedule = scheduler.optimize()
+    # execution_time = time.time() - start_time
+    
+    # 結果の出力
+    # print(f"\n実行時間: {execution_time:.3f}秒")
+    print("\n=== スケジュール結果 ===")
+    for time_slot, perfs in sorted(schedule.items()):
+        print(f"\n{time_slot.strftime('%H:%M')}:")
+        for perf in perfs:
+            print(f"  - {perf.name} (メンバー{len(perf.members)}名)")
+    
+    stats = scheduler.debug_info['statistics']
+    print("\n=== 統計情報 ===")
+    print(f"スケジュール済み演目数: {stats['total_performances_scheduled']}")
+    
+    print("\n時間枠ごとの競合:")
+    for time, conflicts in stats['conflicts_by_timeslot'].items():
+        if conflicts['total_conflicts'] > 0:
+            print(f"{time}: {conflicts['total_conflicts']}件の競合")
+    
+    print("\nメンバーの参加回数TOP10:")
+    sorted_participation = sorted(
+        stats['member_participation'].items(),
+        key=lambda x: x[1],
+        reverse=True
+    )[:10]
+    for member_id, count in sorted_participation:
+        print(f"メンバー{member_id}: {count}回")
+    
+    return scheduler.debug_info
+
+
 # if __name__ == "__main__":
 #     run_detailed_test()
