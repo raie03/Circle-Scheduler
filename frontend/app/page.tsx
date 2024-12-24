@@ -15,11 +15,11 @@ async function getScheduleData() {
 
 export default async function Home() {
   const scheduleData = await getScheduleData();
-  // console.log(scheduleData.schedule_result);
+  console.log(scheduleData);
   // console.log(Object.keys(scheduleData));
   // console.log(scheduleData.schedule_result);
 
-  const scheduleResult: any = scheduleData.schedule_result;
+  const { schedule_result } = scheduleData;
 
   // Object.keys(scheduleResult).map((dateTime) => {
   //   console.log("日時:", dateTime);
@@ -34,13 +34,16 @@ export default async function Home() {
   // });
 
   return (
-    <main className="flex-col">
+    <main className="flex-col px-5">
       <div>スケジュール作成アプリ</div>
-      <Link href={"/"} className="text-blue-500">
-        スケジュール作成テスト
+      <Link href={"/schedule"} className="text-blue-500">
+        スケジュール確認テスト
+      </Link>
+      <Link href={"/schedule/response"} className="text-blue-500">
+        回答内容確認テスト
       </Link>
 
-      <FullSchedule scheduleResult={scheduleResult} />
+      <FullSchedule scheduleResult={schedule_result} />
     </main>
   );
 }

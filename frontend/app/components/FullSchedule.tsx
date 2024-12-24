@@ -8,7 +8,7 @@ const FullSchedule = ({ scheduleResult }: any) => {
       {Object.keys(scheduleResult).map((dateTime: any) => {
         const performances = scheduleResult[dateTime];
         return (
-          <div key={dateTime} className="px-5 py-2 border">
+          <div key={dateTime} className="py-2 border">
             <h2>{dateTime}</h2>
             {performances.map((performance: any) => (
               <ScheduleItem key={performance.id} performance={performance} />

@@ -113,8 +113,8 @@ class EnhancedScheduler(EfficientScheduler):
         self.debug_info['input_data'] = {
             'performances': [p.to_dict() for p in self.performances],
             'member_availability': {
-                str(member_id): [t.strftime('%Y-%m-%d %H:%M') for t in times]
-                for member_id, times in self.member_availability.items()
+                str(member_id): [t.strftime('%Y-%m-%d %H:%M') for t in sorted(times)]
+                for member_id, times in sorted(self.member_availability.items())
             }
         }
 
@@ -131,7 +131,7 @@ class EnhancedScheduler(EfficientScheduler):
                     'priority': p.priority
                 } for p in perfs
             ]
-            for time_slot, perfs in sorted(schedule.items())
+            for time_slot, perfs in schedule.items()
         }
 
         # 統計情報を計算
