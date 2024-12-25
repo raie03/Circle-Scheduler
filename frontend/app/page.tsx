@@ -4,7 +4,7 @@ import ScheduleItem from "./components/ScheduleItem";
 import FullSchedule from "./components/FullSchedule";
 
 async function getScheduleData() {
-  const response = await fetch("http://127.0.0.1:8000/schedule/test", {
+  const response = await fetch("http://127.0.0.1:8000/scheduleTest", {
     cache: "no-store",
   });
 

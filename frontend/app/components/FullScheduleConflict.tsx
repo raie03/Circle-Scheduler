@@ -1,7 +1,8 @@
 import React from "react";
 import ConflictDetail from "./ConflictDetail";
 
-const FullScheduleConflict = ({ conflicts_by_timeslot }: any) => {
+const FullScheduleConflict = ({ statistics }: any) => {
+  const { conflicts_by_timeslot } = statistics;
   const performances = Object.values(conflicts_by_timeslot);
   const conflicts = performances.filter((date: any) => {
     //   console.log(date.total_conflicts);

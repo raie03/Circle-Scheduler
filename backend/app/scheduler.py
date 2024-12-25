@@ -285,6 +285,36 @@ def get_detail_data(performances: int, availability: int):
     
     return scheduler.debug_info
 
+def get_performanceData(performanceId: int):
+    performances, availability = generate_test_data(100, 20)
+    scheduler_Data  = EnhancedScheduler(performances, availability)
+    schedule = scheduler_Data.optimize()
+    performance_data = {
+            'performance_data': {
+
+            }
+        }
+    for time_slot, perfs in sorted(schedule.items()):
+        for p in perfs:
+            if p.id == performanceId:
+                
+                if 'id' not in performance_data['performance_data']:
+                    # 初回の場合、基本情報を設定
+                    performance_data['performance_data'] = {
+                        'id': p.id,
+                        'name': p.name,
+                        'members': list(p.members),
+                        'priority': p.priority,
+                        'time_slots': []  # 時間スロットを格納するリスト
+                    }
+                performance_data['performance_data']['time_slots'].append(time_slot.strftime('%Y-%m-%d %H:%M'))
+            
+    
+    # print(performance_data)
+
+    return performance_data
+            
+
 
 # if __name__ == "__main__":
-#     run_detailed_test()
+#     get_performanceData(5)

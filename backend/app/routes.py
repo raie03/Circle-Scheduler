@@ -73,7 +73,7 @@ async def get_schedule():
     scheduleData = scheduler.run_detailed_test()
     return scheduleData
 
-@router.get("/schedule/test")
+@router.get("/scheduleTest")
 async def get_schedule_test():
     try:
         # テストデータの生成とスケジューリング
@@ -91,5 +91,14 @@ async def get_schedule_test():
         #     # }
         # }
         return scheduler_Data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/scheduleTest/{performance_id}")
+async def get_performance_data(performance_id: int):
+    try:
+        perfoemance_data = scheduler.get_performanceData(performance_id)
+        
+        return perfoemance_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
