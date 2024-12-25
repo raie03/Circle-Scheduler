@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 const ScheduleItem = ({ performance }: any) => {
-  console.log(performance.id);
+  // console.log(performance.id);
   return (
     <div key={performance.id}>
       <Link href={`/schedule/${performance.id}`} className="text-blue-500">

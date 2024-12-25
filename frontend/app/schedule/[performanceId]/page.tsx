@@ -16,7 +16,7 @@ const PerformanceData = async ({ params }: any) => {
   const performanceData = await getPerformanceData(performanceId);
   const { performance_data } = performanceData;
   //   console.log(performanceId);
-  console.log(performance_data);
+  //   console.log(performance_data);
   return (
     <div className="container p-4">
       <div>
